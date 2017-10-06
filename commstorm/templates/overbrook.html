@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	<title>Community StormWISE</title>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+	<style> 
+    
+    .result { fill : black; font-size : 15px; font-weight:bold;}
+    * {margin: 10; padding: 10;}
+    #container {height: 100%; width:100%; font-size: 0;}
+    #left, #middle, #right {display: inline-block; *display: inline; zoom: 1;font-size: 14px;}
+    #left {width: 50%;vertical-align: top;}
+    #right {width: 50%; vertical-align:top;}
+    
+  </style>
+  </head>
+  <body>
+    <h1>StormWise Community Model</h1>
+    <h2>Lancaster Ave, Overbrook, Philadelphia</h2>
+    <a href = "/overbrook/advanced/">Advanced Model</a>
+    <p>To run the StormWISE Community Model:</p>
+    <p>1) Input budget</p>
+    <p>2) Input runoff reduction requirement</p>
+    <p>3) Set benefit priority between 0 and 1</p>
+    <p>4) Optimize and Update Results</p>
+  <div id='left'>  
+  <form method = 'GET'>
+      <p>Budget:               ${{ bud }}</p>
+      <p>Runoff Reduction Goal: {{ run }} million gal (max 6.1)</p>
+      <table id='javaT'>
+        <tr>
+          <th>Benefit:</th>
+          <th>You Set Benefit Priority </th>
+          <th>Benefits Actually Achieved</th>
+        </tr>
+        <tr>
+          <td>Runoff Reduction (million gal.)</td>
+          <td>{{ wr.as_p }} <input type="text" id="textInput1" value="" style='border:hidden;'/></td>
+          <td id='run' style='text-align:center;'>
+          </td>
+      </tr>
+        <tr>
+          <td>Aesthetics (% increase)</td>
+          <td>{{ wae.as_p }} <input type="text" id="textInput3" value="" style='border:hidden;'/></td>
+          <td id='aesth' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Amenities (% increase)</td>
+          <td>{{ wam.as_p }} <input type="text" id="textInput4" value="" style='border:hidden;'/></td>
+          <td id='amen' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Green Canopy (% increase)</td>
+          <td>{{ wc.as_p }} <input type="text" id="textInput5" value="" style='border:hidden;'/></td>
+          <td id='can' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Green Jobs (# jobs)</td>
+          <td>{{ wj.as_p }} <input type="text" id="textInput6" value="" style='border:hidden;'/></td>
+          <td id='job' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Maintenance Cost ($1000)</td>
+          <td>{{ wm.as_p }} <input type="text" id="textInput7" value="" style='border:hidden;'/></td>
+          <td id='maint' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Fee Savings ($1000)</td>
+          <td>{{ wf.as_p }} <input type="text" id="textInput8" value="" style='border:hidden;'/></td>
+          <td id='fee' style='text-align:center;'>
+          </td>
+        </tr>
+      </table>
+      <input type='submit' align ='bottom' value='Optimize'/>
+    </form>
+    
+    <p id='test'></p>
+
+    </div>
+    
+        <div id = 'right' style="width:500px">
+          {% if messages %}
+          <button onclick="displayFunction(); this.onclick=null;" >Display Results</button>
+          {% for message in messages %}
+          {% if message.level == 40 %}
+            <p style="color: red; font-size: 18px;"> {{ message }}</h3>
+          {% endif %}  
+          {% endfor %}
+        <h2>Investments</h2>
+        
+          {% for message in messages %}
+          	{% if message.level == 20 %}
+          	<p>Investment to Satisfy Benefit Goals: ${{ message }} Thousand</p>
+          	{% endif %}
+          {% endfor %}
+
+        <p style="text-align:left;font-size:20px;">Investment by GI</p>
+        <table style ="background-color:AliceBlue;">
+        <tr>
+          <th style="text-align:left;">GI Technology</th>
+          <th>Investment ($1000)</th>
+        </tr>
+        <tr>
+          <td>Rain Garden</td>
+          <td id='2_rain_garden' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Tree Trench</td>
+          <td id='3_tree_trench' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Green Roof</td>
+          <td id='4_green_roof' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Planter</td>
+          <td id='5_planter' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Impervious Removal</td>
+          <td id='6_impervious_removal' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Permeable Pavement</td>
+          <td id='7_permeable_pavement' style='text-align:center;'>
+          </td>
+        </tr>
+        <tr>
+          <td>Rain Barrel</td>
+          <td id='8_cistern' style='text-align:center;'>
+          </td>
+        </tr>
+      </table>
+      {% comment %}
+      <div id="chart"></div>
+      {% endcomment %}
+      
+      <h2 style="font-weight:normal;"> Investment by Land Use Category </h2>
+      <table style = "background-color:HoneyDew;">
+        <th>Land Use</th>
+        <th>Investment</th>
+        <tr>
+          <td>Residential</td>
+          <td id = '1_residential'></td>
+        </tr> 
+        <tr>
+          <td>Commercial/Civic</td>
+          <td id = '2_commercial'></td>
+        </tr> 
+        <tr>
+          <td>Industrial</td>
+          <td id = '3_industrial'></td>
+        </tr> 
+        <tr>
+          <td>Transportation</td>
+          <td id = '5_transportation'></td>
+        </tr> 
+        <tr>
+          <td>Recreation</td>
+          <td id = '6_recreation'></td>
+        </tr> 
+        <tr>
+          <td>Vacant</td>
+          <td id = '9_vacant'></td>
+        </tr> 
+      </table>
+      
+    {% endif %}
+    
+    
+    
+    <script type="text/javascript">
+    
+    function displayFunction() {
+          var arrayb = {{ arrayb|safe }};
+          var dictz = JSON.parse("{{dictz|escapejs}}");
+          var dictb = JSON.parse("{{dictb|escapejs}}");
+          var dictl = JSON.parse("{{dictl|escapejs}}");
+          
+          document.getElementById('run').innerHTML = arrayb[0].toFixed(2);
+          document.getElementById('aesth').innerHTML = arrayb[1].toFixed(2);
+          document.getElementById('amen').innerHTML = arrayb[2].toFixed(2);
+          document.getElementById('can').innerHTML = arrayb[3].toFixed(2);
+          document.getElementById('job').innerHTML = arrayb[4].toFixed(2);
+          document.getElementById('maint').innerHTML = arrayb[5].toFixed(2);
+          document.getElementById('fee').innerHTML = arrayb[6].toFixed(2);
+        
+          for (x in dictz) {
+            document.getElementById(x).innerHTML = dictz[x].toFixed(2);
+          }
+
+          var civ = dictl['2_commercial']+dictl['4_civic'];
+           document.getElementById('1_residential').innerHTML = dictl['1_residential'].toFixed(2);
+           document.getElementById('2_commercial').innerHTML = civ.toFixed(2);
+           document.getElementById('3_industrial').innerHTML = dictl['3_industrial'].toFixed(2);
+           document.getElementById('5_transportation').innerHTML = dictl['5_transportation'].toFixed(2);
+           document.getElementById('6_recreation').innerHTML = dictl['6_recreation'].toFixed(2);
+           document.getElementById('9_vacant').innerHTML = dictl['9_vacant'].toFixed(2); 
+
+           document.getElementById('rainrun').innerHTML=dictb['1_volume']['2_rain_garden'].toFixed(2);
+           //bar charts for data
+           /*
+          chartdata = [dictz['2_rain_garden'].toFixed(2),dictz['3_tree_trench'].toFixed(2),dictz['4_green_roof'].toFixed(2),dictz['5_planter'].toFixed(2),dictz['6_impervious_removal'].toFixed(2),dictz['7_permeable_pavement'].toFixed(2),dictz['8_cistern'].toFixed(2)];
+
+          var height = 300,
+              width = 300,
+              barWidth = 20,
+              barOffset = 10;
+              barPadding = 2;
+
+           
+          var dynamicColor;
+
+          var xScale = d3.scale.ordinal().rangeRoundBands([0, width], .03)
+
+          var yScale = d3.scale.linear()
+                .domain([0, d3.max(chartdata)])
+                .range([height, 0]);
+
+
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom")
+              .tickFormat(d3.time.format("%Y-%m"));
+
+ 
+          var colors = d3.scale.linear()
+            .domain([0, chartdata.length*.33, chartdata.length*.66, chartdata.length])
+            .range(['#d6e9c6', '#bce8f1', '#faebcc', '#ebccd1']);
+ 
+ 
+          var svg = d3.select('#chart').append('svg')
+            .attr('width', width+5)
+            .attr('height', height)
+            .style('background', 'AliceBlue');
+
+          var barWidth = width / chartdata.length;
+          svg.selectAll("rect")
+            .data(chartdata)
+            .enter()
+            .append("rect")
+            .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; })
+            //.attr("x", function (data,i) {return xScale(i);})
+            .attr("y", function (data) {
+                if (data != 0){return yScale(data);}
+                else {return height-0};
+                
+              })
+            .attr("width", width / chartdata.length-barPadding)
+            .attr("height", function (data) {return height-yScale(data);})
+            .style({'fill': function(data,i){return colors(i);}, 'stroke': '#31708f', 'stroke-width': '5'});
+
+          svg.selectAll("text")
+            .data(chartdata)
+            .enter()
+            .append("text")
+            .text(function (data) {
+                return data;
+              })
+            .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; })
+            .attr("y", function (data) {
+                if (data != 0){return yScale(data)+10;}
+                else {return height-0};
+              })
+            .attr('dy', '.75em')
+            .attr('dx','.75em')
+            .style({'font-size':'10px'});
+
+          svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.55em")
+            .attr("transform", "rotate(-90)" ); */
+        
+        };
+
+      function updateTextInput1(val) {
+          document.getElementById('textInput1').value=val; 
+        }
+      function updateTextInput3(val) {
+          document.getElementById('textInput3').value=val; 
+        }
+      function updateTextInput4(val) {
+          document.getElementById('textInput4').value=val; 
+        }
+      function updateTextInput5(val) {
+          document.getElementById('textInput5').value=val; 
+        }
+      function updateTextInput6(val) {
+          document.getElementById('textInput6').value=val; 
+        }
+      function updateTextInput7(val) {
+          document.getElementById('textInput7').value=val; 
+        }
+      function updateTextInput8(val) {
+          document.getElementById('textInput8').value=val; 
+        }
+    </script>
+</body>
+</html>

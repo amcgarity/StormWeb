@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Advanced Options</title>
+</head>
+<style type="text/css">
+	* {margin: 10; padding: 10;}
+    #container {height: 100%; width:100%; font-size: 0;}
+    #left, #right {display: inline-block; *display: inline; zoom: 1;font-size: 14px;}
+    #left {width: 60%;vertical-align: top;}
+    #right {width: 40%; vertical-align:text-top;}
+
+    ul{
+    	list-style-type: none;
+    }
+</style>
+<body>
+<h1>StormWISE Community Model: Advanced Model</h1>
+<div id = 'left'>
+<a href = "/overbrook/">Basic Model </a>
+<form method='post'>{% csrf_token %}
+	<h2>GI Types</h2>
+	{{ GIset }}
+	<h2>Requirements</h2>
+		<p>Budget: 				${{ bud }}</p>
+		<p>Runoff Reduction Goal:{{ run }}</p>
+
+	{{ f_formset.management_form }}
+	<h2>Treatable Fractions</h2>
+	<table>
+		<th>Land Type</th>
+		<th>Rain Garden</th>
+		<th>Tree Trench</th>
+		<th>Porous Pavement</th>
+		<th>Rain Barrel</th>
+		<tr>
+		<td>Residential</td>
+		{% for form in f_formset %}
+		<td>{{ form.res_frac }}</td>
+		{% endfor %}
+		</tr>
+
+		<tr>
+		<td>Commercial/Civic</td>
+		{% for form in f_formset %}
+		<td>{{ form.com_frac }}</td>
+		{% endfor %}
+		</tr>	
+		
+		<tr>
+		<td>Industrial</td>
+		{% for form in f_formset %}
+		<td>{{ form.ind_frac }}</td>
+		{% endfor %}
+		</tr>	
+
+		<tr>
+		<td>Transportation</td>
+		{% for form in f_formset %}
+		<td>{{ form.tran_frac }}</td>
+		{% endfor %}
+		</tr>	
+
+		<tr>
+		<td>Recreation</td>
+		{% for form in f_formset %}
+		<td>{{ form.rec_frac }}</td>
+		{% endfor %}
+		</tr>	
+
+		<tr>
+		<td>Vacant</td>
+		{% for form in f_formset %}
+		<td>{{ form.vac_frac }}</td>
+		{% endfor %}
+		</tr>		
+		
+		
+	</table>
+
+	<h2>Benefit Priorities</h2>
+	<table>
+		<tr>
+          <th>Benefit:</th>
+          <th>You Set Benefit Priority </th>
+        </tr>
+        <tr>
+          <td>Runoff Reduction (million gal.)</td>
+          <td>{{ wr.as_p }} <input type="text" id="textInput1" value="" style='border:hidden;'/></td>
+      	</tr>
+        <tr>
+          <td>Aesthetics (% increase)</td>
+          <td>{{ wae.as_p }} <input type="text" id="textInput3" value="" style='border:hidden;'/></td>
+        </tr>
+        <tr>
+          <td>Amenities (% increase)</td>
+          <td>{{ wam.as_p }} <input type="text" id="textInput4" value="" style='border:hidden;'/></td>
+        </tr>
+        <tr>
+          <td>Green Canopy (% increase)</td>
+          <td>{{ wc.as_p }} <input type="text" id="textInput5" value="" style='border:hidden;'/></td>
+        </tr>
+        <tr>
+          <td>Green Jobs (# jobs)</td>
+          <td>{{ wj.as_p }} <input type="text" id="textInput6" value="" style='border:hidden;'/></td>
+        </tr>
+        <tr>
+          <td>Maintenance Cost ($1000)</td>
+          <td>{{ wm.as_p }} <input type="text" id="textInput7" value="" style='border:hidden;'/></td>
+        </tr>
+        <tr>
+          <td>Fee Savings ($1000)</td>
+          <td>{{ wf.as_p }} <input type="text" id="textInput8" value="" style='border:hidden;'/></td>
+        </tr>
+	</table>
+	<input type='submit' value='Submit' class="button"/>
+	
+</form>	
+</div>
+<div id='right' style="width:250px;">
+	{% if messages %}
+          {% for message in messages %}
+          {% if message.level == 40 %}
+            <p style="color: red; font-size: 18px;"> {{ message }}</h3>
+          {% endif %}  
+          {% if message.level == 40 %}
+          	<p> Investment Total: ${{ message }} </p>
+          {% endif %}
+    {% endfor %}
+    
+	<button onclick="myFunction();" id = '2'>Display Results</button>
+	<br>
+	<br>
+	<table style="background-color:AliceBlue;">
+	<th>Benefit Type</th>
+	<th>Benefit Achieved</th>
+	<tr>
+		<td>Runoff Reduction</td>
+		<td id='run'></td>
+	</tr>
+	<tr>
+		<td>Aesthetics</td>
+		<td id='aesth'></td>
+	</tr>
+	<tr>
+		<td>Amenities</td>
+		<td id='amen'></td>
+	</tr>
+	<tr>
+		<td>Green Canopy</td>
+		<td id='can'></td>
+	</tr>
+	<tr>
+		<td>Green Jobs</td>
+		<td id='job'></td>
+	</tr>
+	<tr>
+		<td>Maintenance Costs</td>
+		<td id='maint'></td>
+	</tr>
+	<tr>
+		<td>Fee Savings</td>
+		<td id='fee'></td>
+	</tr>
+	</table>
+	<br>
+	<table style="background-color:HoneyDew">
+		<th>GI Type</th>
+		<th>Investment ($1000)</th>
+		<tr>
+			<td>Rain Garden</td>
+			<td id='garden'></td>
+		</tr>
+		<tr>
+			<td>Tree Trench</td>
+			<td id='tree'></td>
+		</tr>
+		<tr>
+			<td>Pavement</td>
+			<td id='pave'></td>
+		</tr>
+		<tr>
+			<td>Rain Barrel</td>
+			<td id='barrel'></td>
+		</tr>
+	</table>
+</div>
+{% endif %}
+<script type="text/javascript">
+function myFunction() {
+          var arrayb = {{ arrayb|safe }};
+          var dictz = JSON.parse("{{dictz|escapejs}}");
+          
+          document.getElementById('run').innerHTML = arrayb[0].toFixed(2);
+          document.getElementById('aesth').innerHTML = arrayb[1].toFixed(2);
+          document.getElementById('amen').innerHTML = arrayb[2].toFixed(2);
+          document.getElementById('can').innerHTML = arrayb[3].toFixed(2);
+          document.getElementById('job').innerHTML = arrayb[4].toFixed(2);
+          document.getElementById('maint').innerHTML = arrayb[5].toFixed(2);
+          document.getElementById('fee').innerHTML = arrayb[6].toFixed(2);
+
+          if (typeof dictz["2_rain_garden"] != "undefined") {
+          	document.getElementById('garden').innerHTML = dictz["2_rain_garden"].toFixed(2);
+          }
+          if (typeof dictz["3_tree_trench"] != "undefined") {
+          	document.getElementById('tree').innerHTML = dictz["3_tree_trench"].toFixed(2);
+      	  }
+      	  if (typeof dictz["7_permeable_pavement"] != "undefined") {
+          	document.getElementById('pave').innerHTML = dictz["7_permeable_pavement"].toFixed(2);
+          }
+          if (typeof dictz["8_cistern"] != "undefined") {
+          	document.getElementById('barrel').innerHTML = dictz["8_cistern"].toFixed(2);
+          }
+          };
+
+	function updateTextInput1(val) {
+          document.getElementById('textInput1').value=val; 
+        }
+      function updateTextInput3(val) {
+          document.getElementById('textInput3').value=val; 
+        }
+      function updateTextInput4(val) {
+          document.getElementById('textInput4').value=val; 
+        }
+      function updateTextInput5(val) {
+          document.getElementById('textInput5').value=val; 
+        }
+      function updateTextInput6(val) {
+          document.getElementById('textInput6').value=val; 
+        }
+      function updateTextInput7(val) {
+          document.getElementById('textInput7').value=val; 
+        }
+      function updateTextInput8(val) {
+          document.getElementById('textInput8').value=val; 
+        }
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+# max ancillary benefit-village.dat
+I: {1_headwaters}
+J: {1_residential,2_commercial,3_industrial,5_transportation,6_recreation,9_vacant}
+K: {2_rain_garden,3_tree_trench,7_permeable_pavement,8_cistern}
+T: {1_volume,3_aesthetics,4_amenity,5_green_canopy,6_job,7_m_cost,8_fee_saving}
+Ta: {3_aesthetics,4_amenity,5_green_canopy,6_job,7_m_cost,8_fee_saving}
+Ts: {1_volume}
+Kg: {2_rain_garden,3_tree_trench,7_permeable_pavement}
+Kr: {8_cistern}
+weighting: {1_DW,2_SW,3_PSW,4_PSW_5}
+KONJ:
+    1_residential: {
+        2_rain_garden,
+        3_tree_trench,
+        7_permeable_pavement,
+        8_cistern
+    }
+    2_commercial: {
+        2_rain_garden,
+        3_tree_trench,
+        7_permeable_pavement,
+        8_cistern
+    }
+    3_industrial: {
+        2_rain_garden,
+        3_tree_trench,
+        7_permeable_pavement,
+        8_cistern
+    }
+    5_transportation: {
+        2_rain_garden,
+        3_tree_trench,
+        7_permeable_pavement,
+        8_cistern
+    }
+    6_recreation: {
+        2_rain_garden,
+        3_tree_trench,
+        7_permeable_pavement,
+        8_cistern
+    }
+    9_vacant: {
+        2_rain_garden,
+        3_tree_trench,
+        7_permeable_pavement,
+        8_cistern
+    }
+
+w1:
+    1_DW:
+        3_aesthetics:       0.21
+        4_amenity:          0.13
+        5_green_canopy:     0.12
+        6_job:              0.23 
+        7_m_cost:           0.10
+        8_fee_saving:       0.11
+    2_SW:
+        3_aesthetics:       0.17
+        4_amenity:          0.20
+        5_green_canopy:     0.17
+        6_job:              0.22 
+        7_m_cost:           0.14
+        8_fee_saving:       0.09
+    3_PSW:
+        3_aesthetics:       0.13
+        4_amenity:          0.27
+        5_green_canopy:     0.10
+        6_job:              0.28 
+        7_m_cost:           0.09
+        8_fee_saving:       0.13
+    4_PSW_5:
+        3_aesthetics:       0.15
+        4_amenity:          0.20
+        5_green_canopy:     0.09
+        6_job:              0.34 
+        7_m_cost:           0.14
+        8_fee_saving:       0.09
+w:
+    1_volume:                0
+    3_aesthetics:           0 
+    4_amenity:              0 
+    5_green_canopy:         0 
+    6_job:                  0 
+    7_m_cost:               0 
+    8_fee_saving:           0 
+
+w:
+    3_aesthetics:           0
+    4_amenity:              0 
+    5_green_canopy:         0 
+    6_job:                  0 
+    7_m_cost:               0 
+    8_fee_saving:           0    
+
+1_min:
+    1_volume:               3.17279
+    3_aesthetics:           0.0 
+    4_amenity:              0.0 
+    5_green_canopy:         0
+    6_job:                  1.49989 
+    7_m_cost:              -62.3043 
+    8_fee_saving:           2.89414 
+2_range:
+    1_volume:               5.71
+    3_aesthetics:           44.2
+    4_amenity:              76.89
+    5_green_canopy:         15.9 
+    6_job:                  82.4565 
+    7_m_cost:               10.0 
+    8_fee_saving:           2.89414 
+scale :
+    1_volume:               1 
+    3_aesthetics:           1
+    4_amenity:              1 
+    5_green_canopy:         2.16 
+    6_job:                  1
+    7_m_cost:               1
+    8_fee_saving:           0.392 
+cost :
+    2_rain_garden:
+        1_residential:      100
+        2_commercial:       100
+        3_industrial:       100
+        5_transportation:   100
+        6_recreation:       100
+        9_vacant:           100 
+    3_tree_trench:
+        1_residential:      40
+        2_commercial:       40
+        3_industrial:       40
+        5_transportation:   40
+        6_recreation:       40
+        9_vacant:           40      
+    7_permeable_pavement:
+        1_residential:      500
+        2_commercial:       500
+        3_industrial:       500
+        5_transportation:   500
+        6_recreation:       500
+        9_vacant:           500  
+    8_cistern:
+        1_residential:      150
+        2_commercial:       150
+        3_industrial:       150
+        5_transportation:   150
+        6_recreation:       150
+        9_vacant:           150  
+export :   
+    1_volume:
+        1_residential:      0.79
+        2_commercial:       1.05
+        3_industrial:       1.05
+        5_transportation:   0.79
+        6_recreation:       0.79
+        9_vacant:           0.61  
+    3_aesthetics:
+        1_residential:      1
+        2_commercial:       1
+        3_industrial:       1
+        5_transportation:   1
+        6_recreation:       1
+        9_vacant:           1      
+    4_amenity:
+        1_residential:      1
+        2_commercial:       1
+        3_industrial:       1
+        5_transportation:   1
+        6_recreation:       1
+        9_vacant:           1   
+    5_green_canopy:
+        1_residential:      1
+        2_commercial:       1
+        3_industrial:       1
+        5_transportation:   1
+        6_recreation:       1
+        9_vacant:           1  
+    6_job:
+        1_residential:      1
+        2_commercial:       1
+        3_industrial:       1
+        5_transportation:   1
+        6_recreation:       1
+        9_vacant:           1   
+    7_m_cost:
+        1_residential:      1
+        2_commercial:       1
+        3_industrial:       1
+        5_transportation:   1
+        6_recreation:       1
+        9_vacant:           1  
+    8_fee_saving:
+        1_residential:      1
+        2_commercial:       1
+        3_industrial:       1
+        5_transportation:   1
+        6_recreation:       1
+        9_vacant:           1   
+s_cso:
+    1_volume:
+        2_rain_garden:
+        3_tree_trench:
+        8_cistern:
+f : 
+    2_rain_garden:
+        1_residential:      
+            1_headwaters:   0.2
+        2_commercial:       
+            1_headwaters:   0.1
+        3_industrial:       
+            1_headwaters:   0.1
+        5_transportation:   
+            1_headwaters:   0.15
+        6_recreation:       
+            1_headwaters:   0.1
+        9_vacant:           
+            1_headwaters:   0.2 
+    3_tree_trench:
+        1_residential:      
+            1_headwaters:   0.2
+        2_commercial:       
+            1_headwaters:   0.15
+        3_industrial:       
+            1_headwaters:   0.1
+        5_transportation:   
+            1_headwaters:   0.3
+        6_recreation:       
+            1_headwaters:   0.1
+        9_vacant:           
+            1_headwaters:   0.25
+    7_permeable_pavement:
+        1_residential:      
+            1_headwaters:   0.2
+        2_commercial:       
+            1_headwaters:   0.15
+        3_industrial:       
+            1_headwaters:   0.05
+        5_transportation:   
+            1_headwaters:   0.15
+        6_recreation:       
+            1_headwaters:   0.4
+        9_vacant:           
+            1_headwaters:   0.2
+    8_cistern:
+        1_residential:      
+            1_headwaters:   0.35
+        2_commercial:       
+            1_headwaters:   0.15
+        3_industrial:       
+            1_headwaters:   0.15
+        5_transportation:   
+            1_headwaters:   0.15
+        6_recreation:       
+            1_headwaters:   0.2
+        9_vacant:           
+            1_headwaters:   0
+fg :
+    1_residential:      
+        1_headwaters:   0.2
+    2_commercial:       
+        1_headwaters:   0.1
+    3_industrial:       
+        1_headwaters:   0.1
+    5_transportation:   
+        1_headwaters:   0.3
+    6_recreation:       
+        1_headwaters:   0.1
+    9_vacant:           
+        1_headwaters:   0.25
+fr :
+    1_residential:
+        1_headwaters: 0.35
+    2_commercial:
+        1_headwaters: 0.15
+    3_industrial:
+        1_headwaters: 0.15
+    5_transportation:
+        1_headwaters: 0.15
+    6_recreation:
+        1_headwaters: 0.2
+    9_vacant:
+        1_headwaters: 0
+area :
+    1_residential:
+        1_headwaters:       3.54 
+    2_commercial:
+        1_headwaters:       5.08 
+    3_industrial:
+        1_headwaters:       3.94 
+    5_transportation:
+        1_headwaters:       6.00 
+    6_recreation:
+        1_headwaters:       3.54
+    9_vacant:
+        1_headwaters:       1.75 
+eta :
+    1_volume:
+        2_rain_garden:
+            1_headwaters:   0.9
+        3_tree_trench:
+            1_headwaters:   0.9
+        7_permeable_pavement:
+            1_headwaters:   0.5
+        8_cistern:
+            1_headwaters:   0.9
+    3_aesthetics:
+        2_rain_garden:
+            1_headwaters:   6
+        3_tree_trench:
+            1_headwaters:   2
+        7_permeable_pavement:
+            1_headwaters:   1
+        8_cistern:
+            1_headwaters:   0
+    4_amenity:
+        2_rain_garden:
+            1_headwaters:   5
+        3_tree_trench:
+            1_headwaters:   1
+        7_permeable_pavement:
+            1_headwaters:   20
+        8_cistern:
+            1_headwaters:   0
+    5_green_canopy:
+        2_rain_garden:
+            1_headwaters:   0
+        3_tree_trench:
+            1_headwaters:   1
+        7_permeable_pavement:
+            1_headwaters:   0
+        8_cistern:
+            1_headwaters:   0
+    6_job:
+        2_rain_garden:
+            1_headwaters:   1.1
+        3_tree_trench:
+            1_headwaters:   0.12
+        7_permeable_pavement:
+            1_headwaters:   3.5
+        8_cistern:
+            1_headwaters:   0.2
+    7_m_cost:
+        2_rain_garden:
+            1_headwaters:   -3
+        3_tree_trench:
+            1_headwaters:   -0.6
+        7_permeable_pavement:
+            1_headwaters:   -2.4
+        8_cistern:
+            1_headwaters:   -0.5
+    8_fee_saving:
+        2_rain_garden:
+            1_headwaters:   1
+        3_tree_trench:
+            1_headwaters:   1
+        7_permeable_pavement:
+            1_headwaters:   1
+        8_cistern:
+            1_headwaters:   1

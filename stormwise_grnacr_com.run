@@ -1,0 +1,42 @@
+reset;
+model stormwise_grnacr_com.mod;
+data stormwise_grnacr_com.dat;
+data stormwise_grnacr_com_benefits.dat;
+option solver "/var/lib/ampl/minos";
+solve;
+
+printf "infeasible:" > stormwise_grnacr_com.yaml;
+if solve_result = "infeasible" then {
+	printf " yes\n" > stormwise_grnacr_com.yaml;
+}
+if solve_result = "solved" then {
+	printf " no\n">stormwise_grnacr_com.yaml;
+}
+
+# YAML output for stormwise.py:
+
+# Variables x YAML section:
+printf "x:\n" > stormwise_grnacr_com.yaml;
+for {i in I} {
+    printf "    %s:\n", i >> stormwise_grnacr_com.yaml;
+    for {j in J} {
+        printf "        %s:\n", j >> stormwise_grnacr_com.yaml;
+        for {k in KONJ[j]} {
+            printf "            %s: %10.4f\n", k,x[i,j,k].val >> stormwise_grnacr_com.yaml;
+        }
+    }
+}
+display b_gi;
+display total_cost;
+
+var u_gi{t in T} := sum {i in I, j in J, k in K} s[i,j,k,t]*u[i,j,k]*scale[t];
+display u_gi;
+
+#printf {tp in T} "%s,",b_gi[tp] >> max_ben.csv; 
+#printf "," >> max_ben.csv;
+#printf "%s,", total_cost >> max_ben.csv;
+#printf "," >> max_ben.csv;
+#printf { j in J} "%s,", sum{i in I,k in K} x[i, j,k] >> max_ben.csv;
+#printf "," >> max_ben.csv;
+#printf { k in K} "%s,", sum{i in I,j in J} x[i, j,k] >> max_ben.csv;
+#printf "\n" >> max_ben.csv;
