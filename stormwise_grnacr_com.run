@@ -2,7 +2,7 @@ reset;
 model stormwise_grnacr_com.mod;
 data stormwise_grnacr_com.dat;
 data stormwise_grnacr_com_benefits.dat;
-option solver "/var/lib/ampl/minos";
+option solver "ampl.linux64/minos";
 solve;
 
 printf "infeasible:" > stormwise_grnacr_com.yaml;

@@ -34,7 +34,7 @@ def stormwise(amplPath,inYamlDoc,benefitDict,budget,fDict,kjdict,kdict,Kgdict,Kr
         fout.write(amplBenefits)
         fout.close()
     #cmd=[amplPath,"stormwise_grnacr_com.run"]
-    call(["/var/lib/ampl/ampl","stormwise_grnacr_com.run"])
+    call(["ampl.linux64/ampl","stormwise_grnacr_com.run"])
  #   subprocess.call(cmd,shell='true')
 #    subprocess.check_output(cmd, stderr=subprocess.STDOUT)
     with open('stormwise_grnacr_com.yaml', 'r') as fin:

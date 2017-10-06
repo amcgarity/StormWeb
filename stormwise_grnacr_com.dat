@@ -1,145 +1,59 @@
 set I := 1_headwaters ;
-set J := 10_unknown 1_residential 2_commercial 3_industrial 4_civic 5_transportation 6_recreation 7_park 8_cemetary 9_vacant ;
-set K := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern ;
+set J := 1_residential 2_commercial 3_industrial 5_transportation 6_recreation 9_vacant ;
+set K := ;
 set T := 1_volume 3_aesthetics 4_amenity 5_green_canopy 6_job 7_m_cost 8_fee_saving ;
 set Ta := 3_aesthetics 4_amenity 5_green_canopy 6_job 7_m_cost 8_fee_saving ;
 set Ts := 1_volume ;
-set Kg := 2_rain_garden 3_tree_trench 6_impervious_removal 7_permeable_pavement ;
-set Kr := 4_green_roof 5_planter 8_cistern ;
+set Kg := ;
+set Kr := ;
 set weighting := 1_DW 2_SW 3_PSW 4_PSW_5 ;
-set KONJ[10_unknown] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[1_residential] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[2_commercial] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[3_industrial] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[4_civic] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[5_transportation] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[6_recreation] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[7_park] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[8_cemetary] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
-set KONJ[9_vacant] := 2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  ;
+set KONJ[1_residential] :=  ;
+set KONJ[2_commercial] :=  ;
+set KONJ[3_industrial] :=  ;
+set KONJ[5_transportation] :=  ;
+set KONJ[6_recreation] :=  ;
+set KONJ[9_vacant] :=  ;
 param w1: 3_aesthetics 4_amenity 5_green_canopy 6_job 7_m_cost 8_fee_saving  :=
   1_DW         0.21        0.13        0.12        0.23        0.10        0.11
   2_SW         0.17        0.20        0.17        0.22        0.14        0.09
   3_PSW         0.13        0.27        0.10        0.28        0.09        0.13
   4_PSW_5         0.15        0.20        0.09        0.34        0.14        0.09
 ;
-param area: 10_unknown 1_residential 2_commercial 3_industrial 4_civic 5_transportation 6_recreation 7_park 8_cemetary 9_vacant  :=
-  1_headwaters     0.00     3.54     4.66     3.94     0.42     6.00     3.54     0.00     0.00     1.75 
+param area: 1_residential 2_commercial 3_industrial 5_transportation 6_recreation 9_vacant  :=
+  1_headwaters     3.54     5.08     3.94     6.00     3.54     1.75 
 ;
-param fg: 10_unknown 1_residential 2_commercial 3_industrial 4_civic 5_transportation 6_recreation 7_park 8_cemetary 9_vacant  :=
-  1_headwaters     0.00    0.20    0.10    0.10    0.15    0.30    0.10    0.25    0.20    0.25
+param fg: 1_residential 2_commercial 3_industrial 5_transportation 6_recreation 9_vacant  :=
+  1_headwaters     0.20    0.10    0.10    0.30    0.10    0.25
 ;
-param fr: 10_unknown 1_residential 2_commercial 3_industrial 4_civic 5_transportation 6_recreation 7_park 8_cemetary 9_vacant  :=
-  1_headwaters     0.00    0.35    0.15    0.15    0.15    0.15    0.20    0.00    0.00    0.00
+param fr: 1_residential 2_commercial 3_industrial 5_transportation 6_recreation 9_vacant  :=
+  1_headwaters     0.35    0.15    0.15    0.15    0.20    0.00
 ;
 param 1_min:=  1_volume  3.17  3_aesthetics  0.00  4_amenity  0.00  5_green_canopy  0.00  6_job  1.50  7_m_cost  -62.30  8_fee_saving  2.89 ;
 param 2_range:=  1_volume  5.71  3_aesthetics  44.20  4_amenity  76.89  5_green_canopy  15.90  6_job  82.46  7_m_cost  10.00  8_fee_saving  2.89 ;
 param scale:=  1_volume   1.000  3_aesthetics   1.000  4_amenity   1.000  5_green_canopy   2.160  6_job   1.000  7_m_cost   1.000  8_fee_saving   0.392 ;
-param f:2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  :=
-  1_headwaters 10_unknown        0.00        0.00        0.00        0.00        0.00        0.00        0.00
-  1_headwaters 1_residential        0.20        0.20        0.15        0.25        0.10        0.10        0.35
-  1_headwaters 2_commercial        0.10        0.10        0.25        0.15        0.10        0.15        0.15
-  1_headwaters 3_industrial        0.10        0.10        0.25        0.15        0.02        0.05        0.15
-  1_headwaters 4_civic        0.15        0.15        0.15        0.20        0.10        0.15        0.15
-  1_headwaters 5_transportation        0.15        0.30        0.00        0.20        0.01        0.15        0.15
-  1_headwaters 6_recreation        0.10        0.10        0.15        0.20        0.10        0.40        0.20
-  1_headwaters 7_park        0.20        0.25        0.00        0.10        0.01        0.20        0.00
-  1_headwaters 8_cemetary        0.20        0.20        0.00        0.15        0.01        0.20        0.00
-  1_headwaters 9_vacant        0.20        0.25        0.00        0.10        0.01        0.20        0.00
+param f: :=
+  1_headwaters 1_residential
+  1_headwaters 2_commercial
+  1_headwaters 3_industrial
+  1_headwaters 5_transportation
+  1_headwaters 6_recreation
+  1_headwaters 9_vacant
 ;
-param cost:2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  :=
-  10_unknown       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  1_residential       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  2_commercial       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  3_industrial       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  4_civic       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  5_transportation       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  6_recreation       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  7_park       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  8_cemetary       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
-  9_vacant       100.00       40.00     1500.00      200.00      200.00      500.00      150.00
+param cost: :=
+  1_residential 
+  2_commercial 
+  3_industrial 
+  5_transportation 
+  6_recreation 
+  9_vacant 
 ;
-param u:2_rain_garden 3_tree_trench 4_green_roof 5_planter 6_impervious_removal 7_permeable_pavement 8_cistern  :=
-  1_headwaters 10_unknown        0.00        0.00        0.00        0.00        0.00        0.00        0.00
-  1_headwaters 1_residential       70.80       28.32     1858.50      247.80      141.60      354.00      185.85
-  1_headwaters 2_commercial       46.60       18.64     1048.50      139.80       93.20      233.00      104.85
-  1_headwaters 3_industrial       39.40       15.76      886.50      118.20       78.80      197.00       88.65
-  1_headwaters 4_civic        6.30        2.52       94.50       12.60       12.60       31.50        9.45
-  1_headwaters 5_transportation      180.00       72.00     1350.00      180.00      360.00      900.00      135.00
-  1_headwaters 6_recreation       35.40       14.16     1062.00      141.60       70.80      177.00      106.20
-  1_headwaters 7_park        0.00        0.00        0.00        0.00        0.00        0.00        0.00
-  1_headwaters 8_cemetary        0.00        0.00        0.00        0.00        0.00        0.00        0.00
-  1_headwaters 9_vacant       43.75       17.50        0.00        0.00       87.50      218.75        0.00
+param u: :=
+  1_headwaters 1_residential
+  1_headwaters 2_commercial
+  1_headwaters 3_industrial
+  1_headwaters 5_transportation
+  1_headwaters 6_recreation
+  1_headwaters 9_vacant
 ;
 param s: 1_volume 3_aesthetics 4_amenity 5_green_canopy 6_job 7_m_cost 8_fee_saving  :=
-  1_headwaters 10_unknown 2_rain_garden  0.00549000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 10_unknown 3_tree_trench  0.01372500000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 10_unknown 4_green_roof  0.00020333333333  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 10_unknown 5_planter  0.00244000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 10_unknown 6_impervious_removal  0.00152500000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 10_unknown 7_permeable_pavement  0.00061000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 10_unknown 8_cistern  0.00366000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 1_residential 2_rain_garden  0.00711000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 1_residential 3_tree_trench  0.01777500000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 1_residential 4_green_roof  0.00026333333333  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 1_residential 5_planter  0.00316000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 1_residential 6_impervious_removal  0.00197500000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 1_residential 7_permeable_pavement  0.00079000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 1_residential 8_cistern  0.00474000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 2_commercial 2_rain_garden  0.00945000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 2_commercial 3_tree_trench  0.02362500000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 2_commercial 4_green_roof  0.00035000000000  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 2_commercial 5_planter  0.00420000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 2_commercial 6_impervious_removal  0.00262500000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 2_commercial 7_permeable_pavement  0.00105000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 2_commercial 8_cistern  0.00630000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 3_industrial 2_rain_garden  0.00945000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 3_industrial 3_tree_trench  0.02362500000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 3_industrial 4_green_roof  0.00035000000000  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 3_industrial 5_planter  0.00420000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 3_industrial 6_impervious_removal  0.00262500000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 3_industrial 7_permeable_pavement  0.00105000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 3_industrial 8_cistern  0.00630000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 4_civic 2_rain_garden  0.00945000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 4_civic 3_tree_trench  0.02362500000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 4_civic 4_green_roof  0.00035000000000  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 4_civic 5_planter  0.00420000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 4_civic 6_impervious_removal  0.00262500000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 4_civic 7_permeable_pavement  0.00105000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 4_civic 8_cistern  0.00630000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 5_transportation 2_rain_garden  0.00711000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 5_transportation 3_tree_trench  0.01777500000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 5_transportation 4_green_roof  0.00026333333333  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 5_transportation 5_planter  0.00316000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 5_transportation 6_impervious_removal  0.00197500000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 5_transportation 7_permeable_pavement  0.00079000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 5_transportation 8_cistern  0.00474000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 6_recreation 2_rain_garden  0.00711000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 6_recreation 3_tree_trench  0.01777500000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 6_recreation 4_green_roof  0.00026333333333  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 6_recreation 5_planter  0.00316000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 6_recreation 6_impervious_removal  0.00197500000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 6_recreation 7_permeable_pavement  0.00079000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 6_recreation 8_cistern  0.00474000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 7_park 2_rain_garden  0.00360000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 7_park 3_tree_trench  0.00900000000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 7_park 4_green_roof  0.00013333333333  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 7_park 5_planter  0.00160000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 7_park 6_impervious_removal  0.00100000000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 7_park 7_permeable_pavement  0.00040000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 7_park 8_cistern  0.00240000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 8_cemetary 2_rain_garden  0.00360000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 8_cemetary 3_tree_trench  0.00900000000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 8_cemetary 4_green_roof  0.00013333333333  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 8_cemetary 5_planter  0.00160000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 8_cemetary 6_impervious_removal  0.00100000000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 8_cemetary 7_permeable_pavement  0.00040000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 8_cemetary 8_cistern  0.00240000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
-  1_headwaters 9_vacant 2_rain_garden  0.00549000000000  0.06000000000000  0.05000000000000  0.00000000000000  0.01100000000000  -0.03000000000000  0.01000000000000
-  1_headwaters 9_vacant 3_tree_trench  0.01372500000000  0.05000000000000  0.02500000000000  0.02500000000000  0.00300000000000  -0.01500000000000  0.02500000000000
-  1_headwaters 9_vacant 4_green_roof  0.00020333333333  0.00133333333333  0.00000000000000  0.00066666666667  0.01300000000000  -0.01000000000000  0.00066666666667
-  1_headwaters 9_vacant 5_planter  0.00244000000000  0.03000000000000  0.00000000000000  0.00000000000000  0.01000000000000  -0.00900000000000  0.00500000000000
-  1_headwaters 9_vacant 6_impervious_removal  0.00152500000000  0.01000000000000  0.00000000000000  0.00000000000000  0.00200000000000  -0.00750000000000  0.00500000000000
-  1_headwaters 9_vacant 7_permeable_pavement  0.00061000000000  0.00200000000000  0.04000000000000  0.00000000000000  0.00700000000000  -0.00480000000000  0.00200000000000
-  1_headwaters 9_vacant 8_cistern  0.00366000000000  0.00000000000000  0.00000000000000  0.00000000000000  0.00133333333333  -0.00333333333333  0.00666666666667
 ;

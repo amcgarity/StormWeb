@@ -22,7 +22,7 @@ from tools import multiply_dict_by_constant
 from tools import format_dict_as_strings
 
 #amplPath = "ampl"  # note: you must also set the solver path in stormwise_grnacr.run
-amplPath ="var/lib/ampl/ampl"
+amplPath ="ampl.linux64/ampl"
 
 def print_output(solutionDict,benefitUnits,benefitConvertUnits):                              
     benTotsByBenefit = solutionDict['benTotsByBenefit']
