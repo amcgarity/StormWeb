@@ -25,7 +25,7 @@ SECRET_KEY = '#9z#e82ds8trx7#@^t2j%ak!tci@5e0p_z_2+te!zgg%fi$@wr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'schuylkill', u'ocracoke', u'34.201.210.56']
+ALLOWED_HOSTS = [u'schuylkill', u'ocracoke', u'34.201.210.56', u'localhost']
 
 
 # Application definition
@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'commstorm.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -82,7 +82,7 @@ DATABASES = {
 	'PORT':	5432,
     }
 }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

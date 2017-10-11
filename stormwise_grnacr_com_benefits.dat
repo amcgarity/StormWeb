@@ -2,7 +2,7 @@ data;
 param bud :=       400.0000000000
 ;
 param Bmin :=
-    1_volume            4.5000000000
+    1_volume            4.4500000000
     3_aesthetics            0.0000000000
     4_amenity            0.0000000000
     5_green_canopy            0.0000000000
