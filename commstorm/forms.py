@@ -1,3 +1,4 @@
+# forms.py is IMPORTED INTO views.py
 from django import forms
 #weight forms
 class RunWeightForm(forms.Form):
