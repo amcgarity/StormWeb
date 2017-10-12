@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#9z#e82ds8trx7#@^t2j%ak!tci@5e0p_z_2+te!zgg%fi$@wr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [u'schuylkill', u'ocracoke', u'34.201.210.56', u'localhost']
+ALLOWED_HOSTS = [u'schuylkill', u'ocracoke', u'34.201.210.56', u'localhost', u'aws-3.greenphilly.net', u'overbrook.greenphilly.net']
 
 
 # Application definition
