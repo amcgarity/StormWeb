@@ -2,7 +2,7 @@ data;
 param bud :=       400.0000000000
 ;
 param Bmin :=
-    1_volume            4.4500000000
+    1_volume            2.0000000000
     3_aesthetics            0.0000000000
     4_amenity            0.0000000000
     5_green_canopy            0.0000000000
@@ -12,12 +12,12 @@ param Bmin :=
 ;
 
 param w :=
-    1_volume            0.5000000000
-    3_aesthetics            0.5000000000
-    4_amenity            0.5000000000
-    5_green_canopy            0.5000000000
-    6_job            0.5000000000
-    7_m_cost            0.5000000000
-    8_fee_saving            0.5000000000
+    1_volume            1.0000000000
+    3_aesthetics            0.0000000000
+    4_amenity            0.0000000000
+    5_green_canopy            0.0000000000
+    6_job            0.0000000000
+    7_m_cost            0.0000000000
+    8_fee_saving            0.0000000000
 ;
 model;
