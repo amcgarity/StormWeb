@@ -16,7 +16,7 @@ x:
             5_planter:     0.0000
             6_impervious_removal:     0.0000
             7_permeable_pavement:     0.0000
-            8_cistern:     0.0000
+            8_cistern:    28.1500
         2_commercial:
             2_rain_garden:     0.0000
             3_tree_trench:    18.6400
@@ -48,7 +48,7 @@ x:
             5_planter:     0.0000
             6_impervious_removal:     0.0000
             7_permeable_pavement:     0.0000
-            8_cistern:    28.1500
+            8_cistern:     0.0000
         6_recreation:
             2_rain_garden:     0.0000
             3_tree_trench:    14.1600

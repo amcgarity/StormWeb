@@ -13,7 +13,7 @@ param Bmin :=
 
 param w :=
     1_volume            0.5000000000
-    3_aesthetics            0.5000000000
+    3_aesthetics            0.0000000000
     4_amenity            0.5000000000
     5_green_canopy            0.5000000000
     6_job            0.5000000000
